@@ -36,6 +36,71 @@ def train():    # Create a function to initiate model training pipeline
         X_train
     )
 
-    model = Pipeline(   #   
-        ""
+    # Create a pipeline
+    model = Pipeline(       # Pipeline() offers same preprocessing during training and prediction which prevents deployment bugs
+
+        steps=[     # Define the sequence of steps to be executed
+            (
+                "preprocessor", preprocessor    # Preprocessing step: Apply scaling and encoding
+            ),
+            (
+                "classifier", LogisticRegression(max_iter=1000) # Specify the model for training: Logistic regression used for prediction
+            )
+        ]
     )
+
+    model.fit(      # Train the pipeline
+        X_train, y_train    # Feature variables and target variables used for training
+    )
+
+    predictions = model.predict(    # Generate class predictions on the test dataset
+        X_test      # Feature vraibles for test dataset
+    )
+
+    probabilities = model.predict_proba(    # Generate probability scores for each class predictiom
+        X_test
+    )[:,1]      # Extract only the class
+
+
+    # Display the evaluation metrics
+
+    print(
+        "Accuracy:", accuracy_score(    # Calculate the model accuracy
+            y_test, predictions     # Proportions of correct predictions
+        )
+    )
+
+    print(
+        "Precision:", precision_score(  # Calculate the model precisiom
+            y_test, predictions     # percentage of True prediction that were actually true
+        )
+    )
+
+    print(
+        "Recall:", recall_score(    # Calculate the model recall
+            y_test, predictions     # percentage of actual churn customers correctly identified
+        )
+    )
+
+    print(
+        "F1:", f1_score(    # Calculate the F1 Score
+            y_test, predictions     # Calculates harmonic mean of precision and recall
+        )
+    )
+
+    print(
+        "ROC-AUC:", roc_auc_score(      # Calculate the ROC-AUC score
+            y_test, probabilities   # Measures the model's ability to distinguish between churn and non-churn classes
+        )
+    )
+
+    joblib.dump(    # save the trained data
+        model,MODEL_PATH    # Define the model object and the model path
+    )
+
+    print(
+        "\nModel saved..."  # Confirm saving
+    )
+
+if __name__ == "__main__":  # Execute the training function only when this file is run directly
+    train()     # Start the model training process
