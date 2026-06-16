@@ -46,4 +46,4 @@ elif probability >= 0.40:
 else:
     risk = "Low risk"
 
-print("Risk Tier: {risk}")
+print(f"Risk Tier: {risk}")
