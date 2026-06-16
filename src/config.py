@@ -1,4 +1,4 @@
-DATA_PATH = "data/telco_customer_churn.csv"
+DATA_PATH = "data/WA_Fn-UseC_-Telco-Customer-Churn.csv"
 
 MODEL_PATH = "models/churn_model.pkl"
 
