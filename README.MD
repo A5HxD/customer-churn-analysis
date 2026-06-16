@@ -179,12 +179,23 @@ Encourage customers to shift toward long-term contracts using discounts, loyalty
 ```text
 customer-churn-prediction/
 │
-├── charts/
-├── analysis.ipynb
-├── requirements.txt
-├── summary.docx
-├── telco_customer_churn.csv
-└── README.md
+├── data/
+│   └── telco_customer_churn.csv
+│
+├── models/
+│
+├── notebooks/
+│   └── churn_analysis.ipynb
+│
+├── src/
+│   ├── config.py
+│   ├── preprocess.py
+│   ├── train.py
+│   └── predict.py
+│
+├── README.md
+|
+└── requirements.txt
 ```
 
 ---
