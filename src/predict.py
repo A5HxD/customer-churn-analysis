@@ -11,7 +11,7 @@ model = joblib.load(
 )
 
 
-sample_customer =(
+sample_customer ={
     "gender": "Male",
     "SeniorCitizen": 0,
     "Partner": "No",
@@ -24,14 +24,14 @@ sample_customer =(
     "OnlineBackup": "No",
     "DeviceProtection": "No",
     "TechSupport": "No",
-    "StreamingTV": "Yes"
+    "StreamingTV": "Yes",
     "StreamingMovies": "Yes",
     "Contract": "Month-to-month",
     "PaperlessBilling": "Yes",
     "PaymentMethod": "Electronic check",
     "MonthlyCharges": 42.5,
     "TotalCharges": 489.76
-)
+}
 
 customer_df = pd.DataFrame([sample_customer])
 
