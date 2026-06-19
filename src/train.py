@@ -59,7 +59,19 @@ def train():    # Create a function to initiate model training pipeline
             ]
         )
 
-        model.fit(      # Train the pipeline
+        mlflow.log_param(
+            "model",
+            "LogisticRegression"
+        )
+
+        mlflow.log_param(
+            "max_iter",
+            1000
+        )
+
+
+
+        model.fit(      # Train the model
             X_train, y_train    # Feature variables and target variables used for training
         )
 
@@ -74,43 +86,97 @@ def train():    # Create a function to initiate model training pipeline
 
         # Display the evaluation metrics
 
+        
+        accuracy = accuracy_score(    # Calculate the model accuracy
+            y_test, predictions     # Proportions of correct predictions
+        )
+        
+
+    
+        precision = precision_score(  # Calculate the model precisiom
+            y_test, predictions     # percentage of True prediction that were actually true
+        )
+
+  
+        recall = recall_score(    # Calculate the model recall
+            y_test, predictions     # percentage of actual churn customers correctly identified
+        )
+
+
+        F1 = f1_score(    # Calculate the F1 Score
+            y_test, predictions     # Calculates harmonic mean of precision and recall
+        )
+
+
+        roc_auc = roc_auc_score(      # Calculate the ROC-AUC score
+            y_test, probabilities   # Measures the model's ability to distinguish between churn and non-churn classes
+        )
+
+
+        mlflow.log_metric(
+            "accuracy",
+            accuracy
+        )
+
+        mlflow.log_metric(
+            "precision",
+            precision
+        )
+
+        mlflow.log_metric(
+            "recall",
+            recall
+        )
+
+        mlflow.log_metric(
+            "f1_score",
+            F1
+        )
+
+        mlflow.log_metric(
+            "roc_auc",
+            roc_auc
+        )
+
+
+        print("\nModel Performance")
+
         print(
-            "Accuracy:", accuracy_score(    # Calculate the model accuracy
-                y_test, predictions     # Proportions of correct predictions
-            )
+            f"Accuracy : {accuracy:.4f}"
         )
 
         print(
-            "Precision:", precision_score(  # Calculate the model precisiom
-                y_test, predictions     # percentage of True prediction that were actually true
-            )
+            f"Precision: {precision:.4f}"
         )
 
         print(
-            "Recall:", recall_score(    # Calculate the model recall
-                y_test, predictions     # percentage of actual churn customers correctly identified
-            )
+            f"Recall   : {recall:.4f}"
         )
 
         print(
-            "F1:", f1_score(    # Calculate the F1 Score
-                y_test, predictions     # Calculates harmonic mean of precision and recall
-            )
+            f"F1 Score : {F1:.4f}"
         )
 
         print(
-            "ROC-AUC:", roc_auc_score(      # Calculate the ROC-AUC score
-                y_test, probabilities   # Measures the model's ability to distinguish between churn and non-churn classes
-            )
+            f"ROC-AUC  : {roc_auc:.4f}"
         )
+
 
         joblib.dump(    # save the trained data
             model,MODEL_PATH    # Define the model object and the model path
         )
 
+
+        mlflow.sklearn.log_model(
+            sk_model=model,
+            name="model"
+        )
+
         print(
             "\nModel saved..."  # Confirm saving
         )
+
+        print("\nMLflow tracking complete")
 
 
 if __name__ == "__main__":  # Execute the training function only when this file is run directly
