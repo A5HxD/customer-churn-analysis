@@ -21,3 +21,9 @@ class CustomerData(BaseModel):
     PaymentMethod: str
     MonthlyCharges: float
     TotalCharges: float
+
+
+class PredictionResponse(BaseModel):
+    prediction: str
+    churn_probability: float
+    risk_tier: str

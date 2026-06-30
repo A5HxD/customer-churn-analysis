@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 from src.config import MODEL_PATH
 
-from api.schema import CustomerData
+from api.schema import CustomerData, PredictionResponse
 
 app = FastAPI(
     title="Customer Churn Prediction API",
@@ -20,7 +20,10 @@ def home():
 
 
 
-@app.post("/predict")
+@app.post(
+    "/predict",
+    response_model=PredictionResponse
+)
 def predict(
     customer: CustomerData
 ):
