@@ -1,238 +1,397 @@
-# Customer Churn Prediction & Risk Segmentation
+# Customer Churn Prediction & MLOps Pipeline
 
-An end-to-end Machine Learning project focused on predicting telecom customer churn, identifying key churn drivers, segmenting customers into risk tiers, and generating business-oriented retention insights using the Telco Customer Churn dataset.
+An end-to-end Machine Learning project that predicts telecom customer churn using customer demographics, service usage, and billing information. The project covers the complete ML lifecycle—from data analysis and model development to experiment tracking, API deployment, and containerization using modern MLOps practices.
 
 ---
 
-## Business Problem
+## Project Overview
 
-Customer churn is one of the most critical challenges faced by subscription-based businesses such as telecom companies. Acquiring new customers is significantly more expensive than retaining existing ones, making churn prediction an important business problem.
+Customer churn is one of the biggest challenges faced by subscription-based businesses. This project predicts whether a customer is likely to churn using historical telecom customer data and segments customers into different risk tiers to support targeted retention strategies.
 
-The objective of this project is to:
-- predict whether a customer is likely to churn,
-- identify the major factors influencing churn,
-- segment customers into risk groups,
-- and provide actionable business recommendations for improving customer retention.
+The project goes beyond model development by implementing a production-ready inference pipeline using FastAPI, MLflow, and Docker.
+
+---
+
+## Problem Statement
+
+Build an end-to-end customer churn prediction pipeline that analyzes telecom customer behavior, predicts churn probability, and deploys the trained model as a scalable REST API using modern MLOps tools.
 
 ---
 
 ## Dataset
 
-Dataset Used:
-[Telco Customer Churn Dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
+**Dataset:** Telco Customer Churn Dataset
 
-Dataset contains:
+- Source: https://www.kaggle.com/datasets/blastchar/telco-customer-churn
+- Records: 7,043 customers
+- Features: 21 customer attributes
+- Target Variable: `Churn` (Yes / No)
+
+The dataset contains:
+
 - Customer demographics
-- Subscription information
-- Billing details
-- Internet and support services
+- Account information
+- Services subscribed
+- Billing information
+- Customer tenure
 - Churn status
 
-Total Records: **7043 customers**
-
 ---
 
-# Project Workflow
+# Tech Stack
 
-## 1. Data Loading & Exploratory Data Analysis (EDA)
+### Programming
 
-Performed:
-- Dataset inspection
-- Missing value analysis
-- Statistical summary
-- Correlation analysis
-- Churn imbalance analysis
+- Python
 
-Key Findings:
-- Customers with lower tenure churned more frequently
-- Month-to-month contracts had significantly higher churn rates
-- Support-related services reduced churn probability
+### Data Analysis
 
----
+- Pandas
+- NumPy
 
-## 2. Data Preprocessing & Feature Engineering
+### Visualization
 
-### Preprocessing
-- Converted `TotalCharges` to numeric format
-- Handled coercion errors and missing values
-- Applied One-Hot Encoding to categorical variables
-- Scaled numerical features using `StandardScaler`
+- Matplotlib
+- Seaborn
+- Plotly
 
-### Feature Engineering
-Created additional features such as:
-- `ChargesPerMonth`
-- `SeniorWithNoSupport`
+### Machine Learning
 
-### Train-Test Split
-- 80% Training
-- 20% Testing
-- Stratified split used to preserve churn ratio
-
----
-
-## 3. Model Training & Evaluation
-
-The following classification models were trained and compared:
-
+- Scikit-Learn
 - Logistic Regression
 - Random Forest Classifier
 - Gradient Boosting Classifier
 
-### Evaluation Metrics
-Models were evaluated using:
-- Accuracy
-- Precision
-- Recall
-- F1-Score
-- ROC-AUC
+### MLOps
 
-### Best Model
-✅ **Logistic Regression** achieved the best overall performance.
-
-Reason:
-- Better balance between Recall and F1-Score
-- Strong interpretability
-- Stable probability outputs
-- Suitable for structured telecom data after One-Hot Encoding
-
-### Hyperparameter Tuning
-- Performed using `RandomizedSearchCV`
+- MLflow
+- FastAPI
+- Docker
 
 ---
 
-## 4. Customer Risk Segmentation
-
-Customers were segmented using churn probability scores:
-
-| Risk Tier | Probability Range |
-|---|---|
-| High Risk | ≥ 0.70 |
-| Medium Risk | 0.40 – 0.69 |
-| Low Risk | < 0.40 |
-
-### High-Risk Customer Patterns
-High-risk customers commonly had:
-- Month-to-month contracts
-- Higher monthly charges
-- Lower tenure
-- Fewer support services
-
----
-
-# Visualizations
-
-The project includes multiple business-oriented visualizations:
-
-- Feature Importance Chart
-- Churn Rate by Contract Type
-- Tenure Distribution by Churn Status
-- Risk Tier Distribution Donut Chart
-- ROC Curve Comparison
-- Confusion Matrix Comparison
-- Interactive Plotly Scatter Plot
-
----
-
-# Key Business Insights
-
-### 1. Contract Type is the Strongest Churn Driver
-Customers on month-to-month contracts showed the highest churn probability.
-
-### 2. Customer Tenure Strongly Impacts Retention
-Customers with shorter tenure were significantly more likely to churn.
-
-### 3. Support Services Improve Retention
-Customers using:
-- TechSupport
-- OnlineSecurity
-- DeviceProtection
-
-were less likely to churn.
-
----
-
-# Business Recommendations
-
-### Recommendation 1
-Improve early-stage customer onboarding and retention programs to reduce churn during the first few months.
-
-### Recommendation 2
-Encourage customers to shift toward long-term contracts using discounts, loyalty rewards, and bundled service offerings.
-
----
-
-# Technologies Used
-
-- Python
-- Pandas
-- NumPy
-- Scikit-learn
-- Matplotlib
-- Seaborn
-- Plotly
-- Jupyter Notebook
-
----
-
-# Repository Structure
+# Project Structure
 
 ```text
-customer-churn-prediction/
+customer-churn-analysis/
+│
+├── api/
+│   ├── __init__.py
+│   ├── main.py
+│   └── schema.py
 │
 ├── data/
-│   └── telco_customer_churn.csv
+│   └── WA_Fn-UseC_-Telco-Customer-Churn.csv
 │
 ├── models/
+│   └── logistic_regression_pipeline.pkl
 │
 ├── notebooks/
 │   └── churn_analysis.ipynb
 │
 ├── src/
+│   ├── __init__.py
 │   ├── config.py
 │   ├── preprocess.py
 │   ├── train.py
 │   └── predict.py
 │
-├── README.md
-|
-└── requirements.txt
+├── mlruns/
+│
+├── Dockerfile
+├── requirements.txt
+├── .dockerignore
+└── README.md
 ```
 
 ---
 
-# Installation
+# Exploratory Data Analysis
 
-Clone the repository:
+Performed detailed exploratory data analysis including:
 
-```bash
-git clone https://github.com/A5HxD/customer-churn-analysis.git
+- Dataset overview
+- Missing value analysis
+- Class imbalance analysis
+- Summary statistics
+- Correlation analysis
+- Feature relationship visualization
+
+---
+
+# Data Preprocessing
+
+Implemented a reusable preprocessing pipeline including:
+
+- Removed irrelevant features (`customerID`)
+- Converted `TotalCharges` to numeric
+- Missing value handling
+- One-Hot Encoding using `OneHotEncoder`
+- Feature scaling using `StandardScaler`
+- Stratified Train-Test Split (80:20)
+
+The preprocessing pipeline is integrated using Scikit-Learn's `ColumnTransformer` and `Pipeline`.
+
+---
+
+# Model Development
+
+Three classification models were trained and evaluated.
+
+| Model | Purpose |
+|--------|----------|
+| Logistic Regression | Baseline Linear Model |
+| Random Forest | Ensemble Tree Model |
+| Gradient Boosting | Boosted Ensemble |
+
+Evaluation Metrics:
+
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- ROC-AUC
+
+Hyperparameter tuning was performed using `RandomizedSearchCV`.
+
+---
+
+# Best Performing Model
+
+**Logistic Regression**
+
+Selected because it achieved the best balance of:
+
+- Accuracy
+- Precision
+- Recall
+- ROC-AUC
+
+while maintaining excellent interpretability and faster inference.
+
+---
+
+# Customer Risk Segmentation
+
+Customers are segmented using predicted churn probability.
+
+| Risk Tier | Probability |
+|-----------|-------------|
+| High Risk | ≥ 0.70 |
+| Medium Risk | 0.40 – 0.69 |
+| Low Risk | < 0.40 |
+
+Each tier is analyzed based on:
+
+- Monthly Charges
+- Customer Tenure
+- Contract Type
+
+---
+
+# Visualizations
+
+The project includes multiple visualizations including:
+
+- Feature Importance
+- Churn by Contract Type
+- Tenure Distribution
+- ROC Curve Comparison
+- Confusion Matrices
+- Risk Tier Distribution
+- Customer Risk Analysis
+
+---
+
+# Machine Learning Pipeline
+
+The project has been modularized into reusable components.
+
+```
+Load Data
+      │
+      ▼
+Data Cleaning
+      │
+      ▼
+Preprocessing Pipeline
+      │
+      ▼
+Train/Test Split
+      │
+      ▼
+Model Training
+      │
+      ▼
+Evaluation
+      │
+      ▼
+Save Model
 ```
 
-Install dependencies:
+---
+
+# MLflow Integration
+
+MLflow is used to track machine learning experiments.
+
+Tracked information includes:
+
+- Model Parameters
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- ROC-AUC
+- Saved Model Artifacts
+
+Launch MLflow UI:
 
 ```bash
-pip install -r requirements.txt
+mlflow ui
 ```
 
-Run the notebook:
+Open:
+
+```
+http://127.0.0.1:5000
+```
+
+---
+
+# FastAPI Inference Service
+
+The trained model is deployed locally using FastAPI.
+
+Run:
 
 ```bash
-jupyter notebook
+uvicorn api.main:app --reload
+```
+
+Swagger Documentation:
+
+```
+http://127.0.0.1:8000/docs
+```
+
+Available endpoints:
+
+```
+GET /
+
+POST /predict
+```
+
+The API returns:
+
+- Churn Prediction
+- Churn Probability
+- Risk Tier
+
+---
+
+# Docker Support
+
+The application has been containerized using Docker.
+
+Build Image
+
+```bash
+docker build -t churn-api .
+```
+
+Run Container
+
+```bash
+docker run -p 8000:8000 churn-api
+```
+
+---
+
+# Current Architecture
+
+```
+                User
+                  │
+                  ▼
+            FastAPI API
+                  │
+                  ▼
+     Logistic Regression Pipeline
+                  │
+                  ▼
+      Scikit-Learn Preprocessor
+                  │
+                  ▼
+        Customer Churn Prediction
 ```
 
 ---
 
 # Future Improvements
 
-Possible future enhancements:
-- XGBoost or LightGBM implementation
-- SMOTE for class imbalance handling
-- Streamlit deployment
-- Real-time churn prediction dashboard
-- Time-series customer behavior analysis
+- Deploy on AWS EC2
+- Add Docker Compose
+- Implement CI/CD using GitHub Actions
+- Model Monitoring
+- MLflow Model Registry
+- Authentication for API
+- Interactive Streamlit Dashboard
+- Continuous Model Retraining
 
 ---
 
-# Conclusion
+# Installation
 
-This project demonstrates how machine learning can be applied to solve real-world business problems such as telecom customer churn. By combining predictive modeling, customer segmentation, and business analytics, the project provides actionable insights that can help organizations improve customer retention and reduce revenue loss.
+Clone the repository
+
+```bash
+git clone https://github.com/A5HxD/customer-churn-analysis.git
+
+cd customer-churn-analysis
+```
+
+Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+Run training
+
+```bash
+python src/train.py
+```
+
+Launch API
+
+```bash
+uvicorn api.main:app --reload
+```
+
+---
+
+# Key Highlights
+
+- End-to-End Machine Learning Pipeline
+- Modular Project Structure
+- Production-Ready Preprocessing Pipeline
+- Experiment Tracking with MLflow
+- REST API using FastAPI
+- Containerized using Docker
+- Customer Risk Segmentation
+- Business-Oriented Insights
+- Clean, Scalable Architecture
+
+---
+
+# Author
+
+**Ayush Prasad**
+
+GitHub: https://github.com/A5HxD
+
+LinkedIn: https://www.linkedin.com/in/ayushprasad
+
+---
