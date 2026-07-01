@@ -156,7 +156,7 @@ Hyperparameter tuning was performed using `RandomizedSearchCV`.
 
 ---
 
-# 🏆 Best Performing Model
+# Best Performing Model
 
 **Logistic Regression**
 
@@ -171,15 +171,15 @@ while maintaining excellent interpretability and faster inference.
 
 ---
 
-# 📈 Customer Risk Segmentation
+# Customer Risk Segmentation
 
 Customers are segmented using predicted churn probability.
 
 | Risk Tier | Probability |
 |-----------|-------------|
-| 🔴 High Risk | ≥ 0.70 |
-| 🟡 Medium Risk | 0.40 – 0.69 |
-| 🟢 Low Risk | < 0.40 |
+| High Risk | ≥ 0.70 |
+| Medium Risk | 0.40 – 0.69 |
+| Low Risk | < 0.40 |
 
 Each tier is analyzed based on:
 
@@ -189,7 +189,7 @@ Each tier is analyzed based on:
 
 ---
 
-# 📊 Visualizations
+# Visualizations
 
 The project includes multiple visualizations including:
 
@@ -203,7 +203,7 @@ The project includes multiple visualizations including:
 
 ---
 
-# 🔄 Machine Learning Pipeline
+# Machine Learning Pipeline
 
 The project has been modularized into reusable components.
 
@@ -231,7 +231,7 @@ Save Model
 
 ---
 
-# 📋 MLflow Integration
+# MLflow Integration
 
 MLflow is used to track machine learning experiments.
 
@@ -259,7 +259,7 @@ http://127.0.0.1:5000
 
 ---
 
-# 🚀 FastAPI Inference Service
+# FastAPI Inference Service
 
 The trained model is deployed locally using FastAPI.
 
@@ -291,7 +291,7 @@ The API returns:
 
 ---
 
-# 🐳 Docker Support
+# Docker Support
 
 The application has been containerized using Docker.
 
@@ -309,7 +309,7 @@ docker run -p 8000:8000 churn-api
 
 ---
 
-# 📊 Current Architecture
+# Current Architecture
 
 ```
                 User
@@ -329,7 +329,7 @@ docker run -p 8000:8000 churn-api
 
 ---
 
-# 🔮 Future Improvements
+# Future Improvements
 
 - Deploy on AWS EC2
 - Add Docker Compose
@@ -342,7 +342,7 @@ docker run -p 8000:8000 churn-api
 
 ---
 
-# 💻 Installation
+# Installation
 
 Clone the repository
 
@@ -372,7 +372,7 @@ uvicorn api.main:app --reload
 
 ---
 
-# 📌 Key Highlights
+# Key Highlights
 
 - End-to-End Machine Learning Pipeline
 - Modular Project Structure
@@ -386,7 +386,7 @@ uvicorn api.main:app --reload
 
 ---
 
-# 👨‍💻 Author
+# Author
 
 **Ayush Prasad**
 
