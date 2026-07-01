@@ -392,6 +392,6 @@ uvicorn api.main:app --reload
 
 GitHub: https://github.com/A5HxD
 
-LinkedIn: https://www.linkedin.com/in/ayushprasad
+LinkedIn: https://www.linkedin.com/in/ayushprasad-
 
 ---
